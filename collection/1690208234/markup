@@ -59,7 +59,7 @@ WWDp1WMvBpByVG/API8PY?PZvPp18glIGQ
 ```
 This looks like normal text, this is actually base64! We can tell by the limited character set and the fact it's only text instead of the raw data we would expect. This is a weird choice as the registry key is designed to store raw data and would be completely fine with storing it without this base64 encoding.
 
-Since base64 splits all bytes into 6 bits, it will waste 2 bits of storage for every byte that it stores. (9kb * 8/6) = 6.7kb, much closer to the correctly stored data from the backup. Deleting it does remove my profile in the game!
+Since base64 splits all bytes into 6 bits, it will waste 2 bits of storage for every byte that it stores. (9kb * 6/8) = 6.7kb, much closer to the correctly stored data from the backup. Deleting it does remove my profile in the game!
 
 So what now? Decoding the Base64 leads to garbage bytes with no readable strings, this implies it's encrypted, are we now stuck?
 
