@@ -2,3 +2,8 @@ body {background-color: #1b1e20;}
 html {
   color: #bdc3c7;
 }
+img {
+    width: 50%;
+    height: 50%;
+    object-fit: contain;
+}

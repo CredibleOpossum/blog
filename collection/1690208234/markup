@@ -133,7 +133,7 @@ Annnnnd tada! 🎉🎉🎉
 
 Raw json data, very wasteful but useful for us! We can simply write parse the json and write values.
 
-I'm not going bore you with the implementation, I used the serde_json package and just write to this json dump, lets write 999999999 to our Soulstone[gain] value.
+I'm not going bore you with the implementation, I used the serde_json crate and just wrote to the json dump, lets write 999999999 to our Soulstone[gain] value.
 
 We can simply do what we did to decrypt in reverse.
 ```
