@@ -1,23 +1,18 @@
 ## Writing a save editor for a unity game.
-Reverse engineering tends to be a very tedious process that can sometimes take years, luckily C# is an interpreted language that allows for easy decompiling.
+Reverse engineering tends to be a very tedious process that can sometimes take years, luckily C# gives us a bunch of data to work with.
 
 The game: [Burriedbornes, Dungeon RPG](https://store.steampowered.com/app/2153310/Buriedbornes__Dungeon_RPG/)
 
 ## Step 1, find save file.
 
 The first thing we need to is actually find the location of the save file, this might sound simple but can actually be quite difficult.
-
-Devlopers tend to choose predictable directories to save data, so lets think.
-
-Off the top of my head I can think of 3 spots I would save data for a game.
+Devlopers tend to choose predictable directories to save data, so lets think. <br> Off the top of my head I can think of 3 spots I would save data for a game.
 
 1. Local file, just put the save in the place the game is located/installed, /game/saves or similar.
 2. The user directory, %AppData% on Windows and ~/.local/share/ on Linux.
 3. On Windows, the registry.
 
-So, let's use the process of elimination.
-
-For context, I am running this game with wine on Linux.
+So, let's use the process of elimination. For context, I am running this game with wine on Linux.
 
 #### Before running
 ```
@@ -33,22 +28,16 @@ baselib.dll	   Buriedbornes.exe  UnityCrashHandler64.exe
 Buriedbornes_Data  GameAssembly.dll  UnityPlayer.dll
 ```
 
-Well, it's not there.
-
-Let's check the user directory (%AppData% in this case).
+No file changes, not stored here, Let's check the user directory (%AppData% in this case).
 ```
 $ ls
 com.unity.addressables	Player-prev.log		Svg9jyLr
 Player.log		RemoteConfigCache.json	Unity
 ```
 
-There's this suspicious file, "Svg9jyLr", which is about 4kb.
+There's this suspicious file, "Svg9jyLr", which is about 4kb. <br> But this must be some kind of backup, deleting it doesn't delete my save, and it gets regenerated after running the game, so let's continue.
 
-But this must be some kind of backup, deleting it doesn't delete my save, and it gets regenerated after running the game, so let's continue.
-
-That leaves one option, the registry.
-
-Wine has a regedit program, so we will use that.
+That leaves one option, the registry. Wine has a regedit program, so we will use that.
 
 
 ![image](collection/1690208234/pictures/image1.png)
@@ -74,8 +63,7 @@ Since base64 splits all bytes into 6 bits, it will waste 2 bits of storage for e
 
 So what now? Decoding the Base64 leads to garbage bytes with no readable strings, this implies it's encrypted, are we now stuck?
 
-The next step is the lengthy one, we are going to have to read some assemblies. <br>	
-Since this Unity game uses the feature Il2cpp, we will need to use [Il2cppdumper](https://github.com/Perfare/Il2CppDumper).
+The next step is the lengthy one, we are going to have to read some assemblies. Since this Unity game uses the feature Il2cpp, we will need to use [Il2cppdumper](https://github.com/Perfare/Il2CppDumper).
 
 Once we have dumped the DLLs by selecting the executable and the metadata, we now have a "DummyDil" directory containing .dll files we can explore with [ILSpy](https://github.com/icsharpcode/AvaloniaILSpy) (Linux build)
 
@@ -86,17 +74,13 @@ Eventually after searching random keywords and exploring random assemblies I fou
 
 ![Image](collection/1690208234/pictures/image3.png)
 
-We now know the keysize, and the IV size, even the key! The issue now is, we don't know how the data is stored.
-
-I decided to google the name, turns out it's a [free unity addon](https://assetstore.unity.com/packages/tools/aesencryptor-39501) for developers to use.
+We now know the keysize, and the IV size, even the key! The issue now is, we don't know how the data is stored. With this information I decided to google the name, turns out it's a [free unity addon](https://assetstore.unity.com/packages/tools/aesencryptor-39501) for developers to use.
  
 ![Image](collection/1690208234/pictures/image4.png)
 
-Since it's free, we can just download it. Doing so gives me a single .cs file. 
+This tells us the keysize (32 bytes, 256 bits) and the IV size, 16 bytes.
 
-Using our previous knowledge, all we need to know is the format it is saved as and the specific AES algorithm.
-
-The decrypt function tells us both.
+Since it's free, we can just download it. Doing so gives me a single .cs file. <br>Here is the decryption function
 ```
 public static byte[] Decrypt(byte[] buffer)
 {
@@ -112,9 +96,9 @@ public static byte[] Decrypt(byte[] buffer)
 We know this library uses [AesManaged](https://learn.microsoft.com/en-us/dotnet/api/system.security.cryptography.aesmanaged?view=net-7.0), which uses AES in the cbc mode.
 
 
-This fills all our gaps, we now know that the first 16 bytes are the iv, followed by the ciphertext. Since the keysize is 32 bytes, we know we are dealing with AES-256, (32 bytes * 8 bits).
+This is the last we needed to decrypt, we now know that the first 16 bytes are the iv, followed by the ciphertext. Since the keysize is 32 bytes, we know we are dealing with AES-256, (32 bytes * 8 bits).
 
-I don't really know c#, or even like it, but since AES cbc is a standard algorithm that has a specific implementation we can use any language that implements it. Including, my favorite, Rust.
+I don't really know c#, or even like it, but since AES CBC is a standard algorithm that has a specific implementation we can use any language that implements it. Including, my favorite, Rust.
 
 ## Step 3, writing the editor
 
