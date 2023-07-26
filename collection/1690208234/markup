@@ -148,4 +148,4 @@ fn encrypt(plain_text: &[u8], iv: &[u8]) -> Result<Vec<u8>, Box<dyn error::Error
 
 And there we have it, we have all we need for building a save editor. Actually, I already made one, available on my [GitHub](https://github.com/CredibleOpossum/buriedbournes-save-editor)
 
-For the most part, I got really lucky. But this would've still been possible without the C# and open source library, just more inspection and headaches, this game is really fun, I recommend it if you like rougelites.
+For the most part, I got really lucky. But this would've still been possible without the C# and open source library, just more inspection and headaches. This game is really fun <br> I recommend it if you like rougelites.
