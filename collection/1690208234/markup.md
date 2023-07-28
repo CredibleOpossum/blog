@@ -63,9 +63,7 @@ Since base64 splits all bytes into 6 bits, it will waste 2 bits of storage for e
 
 So what now? Decoding the Base64 leads to garbage bytes with no readable strings, this implies it's encrypted, are we now stuck?
 
-The next step is the lengthy one, we are going to have to read some assemblies. Since this Unity game uses the feature Il2cpp, we will need to use [Il2cppdumper](https://github.com/Perfare/Il2CppDumper).
-
-Once we have dumped the DLLs by selecting the executable and the metadata, we now have a "DummyDil" directory containing .dll files we can explore with [ILSpy](https://github.com/icsharpcode/AvaloniaILSpy) (Linux build)
+The next step is the lengthy one, we are going to have to read some assemblies. Since this Unity game uses the feature Il2cpp, we will need to use [Il2cppdumper](https://github.com/Perfare/Il2CppDumper). Once we have dumped the DLLs by selecting the executable and the metadata, we now have a "DummyDil" directory containing .dll files we can explore with [ILSpy](https://github.com/icsharpcode/AvaloniaILSpy) (Linux build)
 
 ![Image](collection/1690208234/pictures/image2.png)
 
@@ -78,9 +76,7 @@ We now know the keysize, and the IV size, even the key! The issue now is, we don
  
 ![Image](collection/1690208234/pictures/image4.png)
 
-This tells us the keysize (32 bytes, 256 bits) and the IV size, 16 bytes.
-
-Since it's free, we can just download it. Doing so gives me a single .cs file. <br>Here is the decryption function
+This tells us the keysize (32 bytes, 256 bits) and the IV size, 16 bytes. Since it's free, we can just download it. Doing so gives me a single .cs file. <br>Here is the decryption function
 ```
 public static byte[] Decrypt(byte[] buffer)
 {
@@ -148,4 +144,4 @@ fn encrypt(plain_text: &[u8], iv: &[u8]) -> Result<Vec<u8>, Box<dyn error::Error
 
 And there we have it, we have all we need for building a save editor. Actually, I already made one, available on my [GitHub](https://github.com/CredibleOpossum/buriedbournes-save-editor)
 
-For the most part, I got really lucky. But this would've still been possible without the C# and open source library, just more inspection and headaches. This game is really fun <br> I recommend it if you like rougelites.
+For the most part, I got really lucky. But this would've still been possible without the C# and open source library, just more inspection and headaches. This game is really fun, I recommend it if you like rougelites.

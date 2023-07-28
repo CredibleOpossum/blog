@@ -1,16 +1,19 @@
 body {
-    background-color: #1b1e20;
+     background-color: #1b1e20;
 }
- html {
+html {
      color: #bdc3c7;
 }
- img {
+img {
      width: 900px;
      height: 500px;
      object-fit: contain;
 }
- a {
-    color:#FFFFFF;
+a {
+     color:#FFFFFF;
 }
-/* Unvisited link */
-
+html {
+     padding-left: 300px;
+     padding-right: 300px;
+}
+ 
