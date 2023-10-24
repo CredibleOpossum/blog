@@ -1,0 +1,153 @@
+## Kanji Coder
+Kanji coder has to be the most interesting programmer I have ever seen, people say he gives off Terry Davis vibes but I think that underplays the uniqueness of this man.
+
+DISCLAIMER: I have already confirmed that he is ok with being called insane, any mention of it isn't used to be hurtful or mean.
+
+## Where do we start
+Kanji has been working on building a new project that's is going to serve as a successor to a game engine he wrote in [Adobe Flash](https://youtu.be/LtjncLE8eCA).
+
+The part that gets the most attention about this project is the way it is structure, let me give you an example.
+```
+    const c_fps =(  30  );  /** Simulation FrameRate **/         // [088][085][---]
+                                                                 // [---]                      
+    const c_dud = "[YOU_MEAN:c_dum:NO:DiscreteUnits:DUM]" ;      // [088]
+                                                                 // [---]
+    //:master_memory_cell_constants:[161]:---------------://     // [161]
+                                                                 // [161]
+        //:SEE[ AT[ AIM_MASTER_MEMORY_LAYOUT ] ]://              // [161]
+        const      _AIM_MASTER_MEMORY_LAYOUT_ ="[HACK]"          // [161]
+                                                                 // [161]
+        ,   c_mm0 =( 0),c_mm1 =( 1),c_mm2 =( 2),c_mm3 =( 3)      // [161]
+                                                                 // [161]
+        ,   c_mm4 =( 4),c_mm5 =( 5),c_mm6 =( 6),c_mm7 =( 7)      // [161]
+                                                                 // [161]
+        ,   c_mm8 =( 8),c_mm9 =( 9),c_mma =(10),c_mmb =(11)      // [161]
+                                                                 // [161]
+        ,   c_mmc =(12),c_mmd =(13),c_mme =(14),c_mmf =(15)      // [161]
+                                                                 // [161]
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;     // [161]
+                                                                 // [161]
+    //:---------------:master_memory_cell_constants:[161]://     // [---]
+    //:#_MASTER_MEMORY_CELL_XY_#:[288]:------------------://     // [288]
+                                                                 // [288]
+        const _AIM_MASTER_MEMORY_LAYOUT_XY_ = "[HACK]"           // [288]
+                                                                 // [288]
+        //: @_NOT_NEEDED_BY_ARTGOLA_@ ://                        // [288]
+                                                                 // [288]
+        ,   c_mm0_x = 0,c_mm1_x = 1,c_mm2_x = 2,c_mm3_x = 3      // [288]
+        ,   c_mm0_y = 0,c_mm1_y = 0,c_mm2_y = 0,c_mm3_y = 0      // [288]
+                                                                 // [288]
+        ,   c_mm4_x = 0,c_mm5_x = 1,c_mm6_x = 2,c_mm7_x = 3      // [288]
+        ,   c_mm4_y = 1,c_mm5_y = 1,c_mm6_y = 1,c_mm7_y = 1      // [288]
+                                                                 // [288]
+        ,   c_mm8_x = 0,c_mm9_x = 1,c_mma_x = 2,c_mmb_x = 3      // [288]
+        ,   c_mm8_y = 2,c_mm9_y = 2,c_mma_y = 2,c_mmb_y = 2      // [288]
+                                                                 // [288]
+        ,   c_mmc_x = 0,c_mmd_x = 1,c_mme_x = 2,c_mmf_x = 3      // [288]
+        ,   c_mmc_y = 3,c_mmd_y = 3,c_mme_y = 3,c_mmf_y = 3      // [288]
+                                                                 // [288]
+        ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;     // [288]
+```
+
+If you couldn't tell, this is JavaScript, it is, yes, seriously. The comments refer to the video were this code is explained. So for the majority of this code it would be [episode 288](https://www.youtube.com/watch?v=YAmZ3qeS13M&list=PL_0ywSR4_rsXStV-1WXZxwCPUkDzSo0D_&index=88).
+
+This project using a single JS file with about 100k line of code and 100k lines of comments. If you'd like to read the file it's available on [GitHub](https://github.com/KanjiCoder/AIM/blob/master/ATOMIC_IVY_MMO.JS), you have to read it as raw text because it's too big to be displayed by GitHub.
+
+I found while scouring the codebase, this function
+```
+        function HAS( i_obj ){ //:TAG[ F_HAS | HAS_FUNC ]://     // [][395][380][182]
+                                                                 // [][380][---][???]
+            var o_has =( 0 );                                    // [][380][---][???]
+                                                                 // [][380][---][???]
+            if( null      === i_obj                              // [][395][--------]
+            ||  undefined === i_obj                              // [][395][--------]
+            ){                                                   // [][395][--------]
+                o_has=( 0 );                                     // [][395][--------]
+            }else                                                // [][395][--------]
+            if( i_obj.nodeName ){                                // [][395][--------]
+                                                                 // [][395][--------]
+                o_has=( 1 );                                     // [][395][--------]
+            }else                                                // [][395][--------]
+            if( typeof i_obj === "string" ){                     // [][380][---][???]
+                                                                 // [][380][---][???]
+                /** Detect Custom Nil ( "[nil]" ) **/            // [][380][---][???]
+                                                                 // [][380][---][???]
+                if( 1                                            // [][380][---][???]
+                &&   ( "[" === i_obj[0] )                        // [][380][---][???]
+                &&   ( "n" === i_obj[1] )                        // [][380][---][???]
+                &&   ( "i" === i_obj[2] )                        // [][380][---][???]
+                &&   ( "l" === i_obj[3] )                        // [][380][---][???]
+                &&   ( "]" === i_obj[4] )                        // [][380][---][???]
+                ){                                               // [][380][---][???]
+                    o_has =( 0 );                                // [][380][---][???]
+                }else{                                           // [][380][---][???]
+                    o_has =( 1 );                                // [][380][---][???]
+                };;                                              // [][380][---][???]
+            }else{                                               // [][380][---][???]
+                if( null      == i_obj                           // [][380][---][???]
+                ||  undefined == i_obj                           // [][380][---][???]
+                ||            ( !i_obj )                         // [][380][---][???]
+                || ""         == i_obj                           // [][380][---][???]
+                ){                                               // [][380][---][???]
+                    o_has =( 0 );                                // [][380][---][???]
+                }else{                                           // [][380][---][???]
+                    o_has =( 1 );                                // [][380][---][???]
+                };;                                              // [][380][---][???]
+            };;                                                  // [][380][---][???]
+                                                                 // [][380][---][???]
+            return( o_has );                                     // [][380][---][???]
+        };;                                                      // [][380][---][???]
+```
+Turns out this for Kanji's own null type, for example, instead of  setting a value to null or doing an assert, he might return [nil][unique identifier for error].
+
+Here's some other insane coding habits he has:
+- Instead of using a git repo and adding commits to it, he creates a new repo for every update (he has a script for this), he currently has [1.7k](https://github.com/KanjiCoder?tab=repositories) repos. The reason he states for this is to make it easier to get historical versions of the game. He mentioned he was inspired to do this because of Casey Muratori's Handmade Hero where he makes a zip file with every update.
+- He uses exclusively [notepad++](https://notepad-plus-plus.org/), a text editor, not an IDE. (I suspect this is because most IDEs would die trying to open this file)
+- Using one file as a choice was to make it easier to grep. (he is aware of file-bundlers)
+
+There is multiple files in the repo which seem unrelated to the project, such ass a "ASS" folder which contains this image
+![](collection/1695294897/img4.JPG)
+
+
+## The actual game
+Every update he will do a visual demo of the game. These videos are part of a playlist on his [other channel](https://www.youtube.com/@WEEBCODER).
+
+The game has many interesting design choices, such as doing the konami code + p will turn the game into [Conway's game of life](https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life). 
+
+He ended up making so many interactions with the konami code that he had to made a new system, aptly named konami extended system, which requires pressing Z and a code after typing the konami code. This allows for 3 digits of unique functionality and "should last him 40 years".
+
+The end goal is to have a MMO platformer game with a large amount of levels. This will work but connecting these "worlds" together and allowing for the players to travel between them.
+
+## Lookup script
+I learned from talking with him that he has an autohotkey script that lets him lookup his "data" file (a huge text file with tons of elements)
+
+The structure he uses is
+alias 1 | alias 2 | alias 3 ...
+[string data]
+[action]
+The way this works is with a binary search, say he has 2 keywords, pizza and pizza_pizza and he types pizza_pizza.
+
+It will read this buffer (a "keylogger" which stores some amount of keypressees at a time) backwards, so if you typed pizza-pizza it will match for azzip-azzip. It does a binary search on this log file and finds the longest match, which would be pizza-pizza.
+
+Once matched, it will use the "action" field to determine what to do, some examples are: PASTE_LINE, PASTE_FILE, RUN_FILE, EDIT_FILE. Pasting line will paste the string data, paste file will go to the path of the file referenced in the buffer and write out it's contents. <br>
+Run file executes the program at the path, while edit runs notepad++ at the path.
+
+## My interactions with him
+When talking to him, he mentioned how his computer would lag when having copies of the JS file open with notepad++, guessing this was because of only having 4GB of ram.<br>He then talked about buying another stick of ram and didn't think about spiting the game into multiple files.
+
+When joining his server, he will (manually) add a number to your name so he knows what "position" you are in, this is how I know I'm the 37th person to join the server.
+
+## Non-coding insanity
+He has a project of keeping bananas cooking in a coffee maker, as far as I understand he intends to eat them. He claims it smells like banana bread.
+![](collection/1695294897/img2.jpg)
+
+His computer setup looks like it is out of a cyberpunk movie.
+![](collection/1695294897/img3.png)
+He uses industrial shelving zip-tied together (this is supposed to be a more portable solution)
+
+He set up a zip-line (likely illegally) in the woods, this project cost him 3 thousand dollars. Videos of this are available [here](https://www.youtube.com/watch?v=RmNKhMZMBjg) and [here](https://www.youtube.com/watch?v=nhbcBwwdN24).
+
+## Stories
+
+When setting up the zipline Kanji was afraid after hearing some footsteps at 2am, this turned out to be a German friend who thought it was hilarious to shop on a Sunday, because you can not buy stuff on a Sunday in Germany.
+
